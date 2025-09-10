@@ -1,107 +1,301 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Milan Food — WhatsApp</title>
-  <meta name="description" content="Milan Food — contacto directo por WhatsApp" />
-  <style>
-    :root{
-      --bg:#0f0f14;
-      --fg:#f6f6f9;
-      --accent:#ff4d4f;
-      --accent2:#ffb347;
-      --card:#171720;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
-      background: radial-gradient(1200px 800px at 70% 10%, #1c1c27 0%, var(--bg) 50%), var(--bg);
-      color:var(--fg);
-      display:grid;
-      place-items:center;
-    }
-    .wrap{
-      width:100%;
-      max-width:1000px;
-      padding:32px 20px 48px;
-      display:grid;
-      gap:28px;
-      justify-items:center;
-    }
-    h1{
-      margin:0;
-      font-size:clamp(22px, 3vw, 34px);
-      letter-spacing:0.2px;
-      text-align:center;
-      font-weight:800;
-    }
-    p.sub{margin:0;opacity:.85;text-align:center;max-width:720px;}
-
-    .scene{width:min(88vw,520px);height:min(88vw,520px);perspective:1200px;user-select:none;}
-    .stage{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .4s cubic-bezier(.2,.8,.2,1);cursor:pointer;}
-    .cube{position:absolute;top:50%;left:50%;transform-style:preserve-3d;transform:translate(-50%,-50%) rotateX(-18deg) rotateY(25deg);width:56%;height:56%;animation:float 4s ease-in-out infinite alternate;}
-    @keyframes float{from{transform:translate(-50%,-50%) rotateX(-18deg) rotateY(25deg)}to{transform:translate(-50%,-50%) rotateX(-24deg) rotateY(31deg) translateZ(10px)}}
-    .face{position:absolute;width:100%;height:100%;background:linear-gradient(180deg,#2b2b3a,#1c1c27);border:1px solid #2c2c38;border-radius:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03),0 12px 30px rgba(0,0,0,.45);display:grid;place-items:center;text-align:center;padding:18px;}
-    .logo{font-weight:900;letter-spacing:1.6px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;text-transform:uppercase;}
-
-    .cube .face--front  { transform: translateZ(calc(50%)); }
-    .cube .face--back   { transform: rotateY(180deg) translateZ(calc(50%)); }
-    .cube .face--right  { transform: rotateY(90deg) translateZ(calc(50%)); }
-    .cube .face--left   { transform: rotateY(-90deg) translateZ(calc(50%)); }
-    .cube .face--top    { transform: rotateX(90deg) translateZ(calc(50%)); }
-    .cube .face--bottom { transform: rotateX(-90deg) translateZ(calc(50%)); }
-
-    .cta{display:inline-flex;gap:10px;align-items:center;padding:14px 18px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#1a1a1a;border:none;border-radius:14px;font-weight:800;text-decoration:none;box-shadow:0 10px 24px rgba(255,77,79,.25);}
-    .cta small{opacity:.9}
-    .footer{opacity:.7;font-size:12px;text-align:center;margin-top:10px;}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Milan Food — Raspa & Gana</title>
+<meta name="description" content="Raspa y gana $1.000 de descuento en tu primera compra presencial. Genera tu cupón con nombre y teléfono.">
+<style>
+  :root{
+    --bg:#0f1116; --card:#171a22; --fg:#f6f7fb; --muted:#aab1c6;
+    --accent:#ff4d4f; --accent2:#ffb347; --ok:#31d095;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    color:var(--fg); background: radial-gradient(1200px 800px at 70% 10%, #1b2130 0%, var(--bg) 55%), var(--bg);
+    display:grid; place-items:center; padding:24px;
+  }
+  .wrap{width:100%; max-width:980px; display:grid; gap:16px}
+  header{display:grid; gap:10px; text-align:center}
+  .brand img{height:80px; width:auto; object-fit:contain; filter: drop-shadow(0 6px 16px rgba(0,0,0,.35));}
+  h1{margin:0; font-size:clamp(20px,3.2vw,30px); font-weight:800; letter-spacing:.2px}
+  .sub{margin:0; color:var(--muted)}
+  .zone{ display:grid; gap:14px; grid-template-columns: 1.1fr .9fr; }
+  @media (max-width:860px){ .zone{grid-template-columns:1fr} }
+  .card{
+    background:linear-gradient(180deg,#1b1f29,var(--card));
+    border:1px solid #232838; border-radius:18px; padding:18px;
+    box-shadow: 0 10px 26px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.03);
+  }
+  .title{font-weight:800; margin:0 0 8px 0}
+  .scratch-wrap{position:relative; aspect-ratio: 16/10; border-radius:14px; overflow:hidden; background:#0d0f14}
+  .prize{
+    position:absolute; inset:0; display:grid; place-items:center; padding:16px; text-align:center;
+    background:
+      radial-gradient(90% 90% at 50% 10%, rgba(255,255,255,.05), rgba(0,0,0,0) 60%),
+      linear-gradient(135deg, rgba(255,77,79,.08), rgba(255,179,71,.08));
+  }
+  .prize h2{margin:.1em 0; font-size:clamp(22px,5.4vw,42px)}
+  .prize .badge{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid #2b3040; font-size:12px; color:#cfd5ea}
+  .overlay{ position:absolute; inset:0; background:#b5b9c8; }
+  canvas#scratch{position:absolute; inset:0; width:100%; height:100%; touch-action:none; cursor:grab}
+  .hint{font-size:13px; color:#cfd5ea; opacity:.85}
+  .ok{color:var(--ok); font-weight:700}
+  .inputs{display:grid; gap:10px}
+  label{font-size:13px; color:#cfd5ea}
+  input{
+    width:100%; padding:12px 14px; border-radius:12px; border:1px solid #2a3042;
+    background:#12151d; color:var(--fg); outline:none;
+  }
+  .row{display:grid; gap:10px; grid-template-columns:1fr 1fr}
+  @media (max-width:520px){ .row{grid-template-columns:1fr} }
+  .btn{
+    appearance:none; border:none; border-radius:14px; padding:14px 16px; font-weight:800;
+    background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#1a1a1a; cursor:pointer;
+    box-shadow:0 12px 28px rgba(255,77,79,.22);
+  }
+  .btn:disabled{filter:grayscale(1); opacity:.6; cursor:not-allowed}
+  .lite{background:#23283a; color:#e7ebff; box-shadow:none}
+  .stack{display:grid; gap:12px}
+  .terms{font-size:12px; color:#cfd5ea}
+  .footer{opacity:.7; font-size:12px; text-align:center; margin-top:8px}
+  .whats{
+    justify-self:center; text-decoration:none; margin-top:4px;
+    display:inline-flex; gap:10px; align-items:center; padding:12px 14px; border-radius:14px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#1a1a1a; font-weight:800;
+  }
+</style>
 </head>
 <body>
   <div class="wrap">
-    <h1>¡Haz clic en el cubo para escribirnos por <span class="logo">WhatsApp</span>!</h1>
-    <p class="sub">Toca o haz clic en el cubo para abrir el chat directo con Milan Food.</p>
+    <header>
+      <div class="brand"><img src="assets/logo.png" alt="Milan Food logo"></div>
+      <h1>Bienvenido — Raspa y desbloquea tu descuento 🎉</h1>
+      <p class="sub">Raspa la tarjeta para revelar tu premio. Luego genera tu cupón con tu nombre y teléfono.</p>
+    </header>
 
-    <div class="scene" id="scene">
-      <div class="stage" id="stage">
-        <div class="cube" id="cube">
-          <div class="face face--front"><h2 class="logo">Milan Food</h2></div>
-          <div class="face face--back"><h2>Click → WhatsApp</h2></div>
-          <div class="face face--right"><h2>🍕 Promos</h2></div>
-          <div class="face face--left"><h2>🍔 Burgers</h2></div>
-          <div class="face face--top"><h2>🍟 Papas</h2></div>
-          <div class="face face--bottom"><h2>💬 Chat</h2></div>
+    <div class="zone">
+      <!-- RASPA Y GANA -->
+      <section class="card stack">
+        <h3 class="title">🎁 Raspa y gana</h3>
+        <div class="scratch-wrap">
+          <div class="prize" id="prize">
+            <div>
+              <span class="badge">Premio desbloqueable</span>
+              <h2>$1.000 de descuento</h2>
+              <p class="hint">En tu primera compra presencial. Raspa para revelar.</p>
+            </div>
+          </div>
+          <div class="overlay"></div>
+          <canvas id="scratch"></canvas>
         </div>
-      </div>
+        <p id="status" class="hint">Desbloquea al menos el <b>50%</b> de la tarjeta.</p>
+        <a id="waBtn" class="whats" href="https://wa.me/56937679969?text=Hola%2C%20quisiera%20agendar%20un%20pedido" target="_blank" rel="noopener">Abrir WhatsApp de Milan Food</a>
+      </section>
+
+      <!-- CUPÓN -->
+      <section class="card">
+        <h3 class="title">🧾 Generar cupón</h3>
+        <div class="inputs">
+          <div class="row">
+            <div>
+              <label for="nombre">Nombre y Apellido</label>
+              <input id="nombre" placeholder="Ej: Juan Pérez" autocomplete="name">
+            </div>
+            <div>
+              <label for="telefono">Teléfono</label>
+              <input id="telefono" placeholder="+56 9 1234 5678" inputmode="tel" autocomplete="tel">
+            </div>
+          </div>
+          <button id="gen" class="btn" disabled>Descargar cupón ($1.000)</button>
+          <button id="test" class="btn lite">Vista previa en nueva pestaña</button>
+          <p class="terms">
+            Condiciones: no es canjeable por dinero, no es transferible, válido solo presentando el cupón en el local junto a tu nombre y teléfono, 
+            un cupón por persona, no acumulable con otras promos, <b>promoción válida hasta agotar stock</b>, validez 30 días desde su emisión.
+          </p>
+        </div>
+      </section>
     </div>
 
-    <a class="cta" id="cta" href="https://wa.me/56937679969?text=Hola%2C%20quisiera%20agendar%20un%20pedido" target="_blank" rel="noopener">
-      Abrir WhatsApp Web <small>(+56 9 3767 9969)</small>
-    </a>
-
-    <div class="footer">© 2025 Milan Food · Hecho con ♥</div>
+    <div class="footer">© <span id="y"></span> Milan Food · Hecho con ♥</div>
   </div>
 
-  <script>
-    const WA = "https://wa.me/56937679969?text=Hola%2C%20quisiera%20agendar%20un%20pedido";
-    const stage = document.getElementById('stage');
-    const cube = document.getElementById('cube');
-    const scene = document.getElementById('scene');
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
 
-    stage.addEventListener('click', () => { window.open(WA,"_blank","noopener"); });
-    scene.addEventListener('mousemove', (e) => {
-      const rect = scene.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
-      const rx = (0.5 - y) * 22;
-      const ry = (x - 0.5) * 28;
-      cube.style.transform = `translate(-50%,-50%) rotateX(${rx-5}deg) rotateY(${ry+12}deg)`;
-    });
-    scene.addEventListener('mouseleave', () => {
-      cube.style.transform = `translate(-50%,-50%) rotateX(-18deg) rotateY(25deg)`;
-    });
-  </script>
+  const canvas = document.getElementById('scratch');
+  const ctx = canvas.getContext('2d');
+  let isDown = false, revealed = false;
+
+  function resizeCanvas(){
+    const r = canvas.getBoundingClientRect();
+    canvas.width = Math.floor(r.width * devicePixelRatio);
+    canvas.height = Math.floor(r.height * devicePixelRatio);
+    ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    paintCover();
+  }
+
+  function paintCover(){
+    const r = canvas.getBoundingClientRect();
+    const grd = ctx.createLinearGradient(0,0,r.width,r.height);
+    grd.addColorStop(0,'#bfc4d6'); grd.addColorStop(1,'#9aa0b4');
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = grd;
+    ctx.fillRect(0,0,r.width,r.height);
+    ctx.fillStyle = 'rgba(0,0,0,.25)';
+    ctx.font = '700 22px system-ui, Segoe UI, Roboto';
+    ctx.textAlign='center';
+    ctx.fillText('RASPA AQUÍ', r.width/2, r.height/2);
+    ctx.strokeStyle='rgba(255,255,255,.35)';
+    ctx.lineWidth=2;
+    ctx.strokeRect(10,10,r.width-20,r.height-20);
+  }
+
+  function scratch(x,y){
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(x, y, 26, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  function percentCleared(samples=32){
+    const r = canvas.getBoundingClientRect();
+    const data = ctx.getImageData(0,0,r.width,r.height).data;
+    let cleared = 0, total = data.length/4;
+    for(let i=0;i<total;i+=samples){
+      if(data[i*4+3] === 0) cleared++;
+    }
+    return (cleared/(total/samples))*100;
+  }
+
+  function checkReveal(){
+    if(revealed) return;
+    const pct = percentCleared(40);
+    document.getElementById('status').innerHTML = `Progreso: <b>${pct.toFixed(0)}%</b> ${pct>=50?'<span class="ok">¡Listo!</span>':''}`;
+    if(pct>=50){
+      revealed = true;
+      document.getElementById('gen').disabled = false;
+    }
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  const pos = (e)=>{
+    const r = canvas.getBoundingClientRect();
+    if(e.touches && e.touches[0]) { return {x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top}; }
+    return {x: e.clientX - r.left, y: e.clientY - r.top};
+  }
+  const start = (e)=>{ isDown=true; canvas.style.cursor='grabbing'; const p=pos(e); scratch(p.x,p.y); checkReveal(); }
+  const move  = (e)=>{ if(!isDown) return; const p=pos(e); scratch(p.x,p.y); checkReveal(); }
+  const stop  = ()=>{ isDown=false; canvas.style.cursor='grab'; }
+
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', stop);
+  canvas.addEventListener('touchstart', (e)=>{ e.preventDefault(); start(e); }, {passive:false});
+  canvas.addEventListener('touchmove', (e)=>{ e.preventDefault(); move(e); }, {passive:false});
+  canvas.addEventListener('touchend', (e)=>{ e.preventDefault(); stop(e); }, {passive:false});
+
+  // --- Coupon generator with LOGO ---
+  function drawCoupon(name, phone, forPreview=false){
+    const W=1080,H=1350, pad=60;
+    const c=document.createElement('canvas'); c.width=W; c.height=H;
+    const g=c.getContext('2d');
+
+    // Fondo
+    const bg=g.createLinearGradient(0,0,W,H);
+    bg.addColorStop(0,'#181c27'); bg.addColorStop(1,'#10131b');
+    g.fillStyle=bg; g.fillRect(0,0,W,H);
+
+    // Borde
+    g.strokeStyle='#ffb347'; g.lineWidth=6; g.strokeRect(18,18,W-36,H-36);
+
+    // LOGO arriba
+    // Cargamos 'assets/logo.png'
+    // Nota: en GitHub Pages debe existir esa ruta.
+    const logo = new Image();
+    logo.onload = ()=>{
+      const maxW = 480; const ratio = Math.min(maxW/logo.width, 1);
+      const w = Math.floor(logo.width*ratio), h = Math.floor(logo.height*ratio);
+      g.drawImage(logo, (W-w)/2, 34, w, h);
+
+      // Título
+      g.fillStyle='#ffffff';
+      g.font='800 50px system-ui, Segoe UI, Roboto';
+      g.textAlign='center';
+      g.fillText('CUPÓN DE DESCUENTO', W/2, h+120);
+
+      // Premio
+      const grd=g.createLinearGradient(pad,0,W-pad,0);
+      grd.addColorStop(0,'#ff4d4f'); grd.addColorStop(1,'#ffb347');
+      g.fillStyle=grd;
+      g.font='900 120px system-ui, Segoe UI, Roboto';
+      g.fillText('$1.000', W/2, h+240);
+      g.font='700 40px system-ui, Segoe UI, Roboto';
+      g.fillText('EN PRIMERA COMPRA PRESENCIAL', W/2, h+300);
+
+      // Datos
+      g.fillStyle='#e9ecfa'; g.textAlign='left';
+      g.font='700 38px system-ui, Segoe UI, Roboto'; g.fillText('Nombre:', pad, h+380);
+      g.font='500 42px system-ui, Segoe UI, Roboto'; g.fillText(name||'—', pad+200, h+380);
+      g.font='700 38px system-ui, Segoe UI, Roboto'; g.fillText('Teléfono:', pad, h+440);
+      g.font='500 42px system-ui, Segoe UI, Roboto'; g.fillText(phone||'—', pad+200, h+440);
+
+      const code='MF-' + new Date().toISOString().replace(/[-:TZ.]/g,'').slice(0,12);
+      g.textAlign='left'; g.font='700 34px system-ui, Segoe UI, Roboto'; g.fillStyle='#cfd5ea';
+      g.fillText('Código:', pad, h+500);
+      g.font='700 36px system-ui, Segoe UI, Roboto'; g.fillStyle='#ffffff';
+      g.fillText(code, pad+130, h+500);
+
+      g.strokeStyle='rgba(255,255,255,.18)'; g.lineWidth=2; g.beginPath(); g.moveTo(pad, h+560); g.lineTo(W-pad, h+560); g.stroke();
+
+      g.fillStyle='#cfd5ea'; g.textAlign='left'; g.font='600 32px system-ui, Segoe UI, Roboto';
+      const terms=[
+        '• No es canjeable por dinero ni transferible.',
+        '• Válido presentando el cupón en el local junto a nombre y teléfono.',
+        '• Un cupón por persona. No acumulable con otras promos.',
+        '• Promoción válida hasta agotar stock.',
+        '• Validez: 30 días desde su emisión.'
+      ];
+      let yy=h+610; terms.forEach(t=>{ g.fillText(t, pad, yy); yy+=44; });
+
+      g.textAlign='center'; g.fillStyle='#97a3c2'; g.font='700 30px system-ui, Segoe UI, Roboto';
+      g.fillText('© '+(new Date().getFullYear())+' Milan Food', W/2, H-40);
+
+      if(forPreview){
+        const w = window.open('', '_blank'); w.document.title='Vista previa cupón';
+        w.document.body.style.margin='0'; const img = new Image(); img.src=c.toDataURL('image/png'); w.document.body.appendChild(img);
+      }
+    };
+    logo.src='assets/logo.png';
+    return c;
+  }
+
+  const btnGen = document.getElementById('gen');
+  const btnPrev= document.getElementById('test');
+  btnGen.addEventListener('click', ()=>{
+    const name = document.getElementById('nombre').value.trim();
+    const phone= document.getElementById('telefono').value.trim();
+    if(!name || !phone){ alert('Completa nombre y teléfono para generar el cupón.'); return; }
+    const can = drawCoupon(name, phone);
+    // retraso breve para permitir carga del logo antes de descarga
+    setTimeout(()=>{
+      const link = document.createElement('a');
+      link.download = `Cupon_MilanFood_${Date.now()}.png`;
+      link.href = document.querySelector('canvas').toDataURL ? document.querySelector('canvas').toDataURL('image/png') : can.toDataURL('image/png');
+      // fallback a canvas generado (primero del documento es el scratch, así que mejor exportar del creado)
+      link.href = can.toDataURL('image/png');
+      link.click();
+    }, 600);
+  });
+  btnPrev.addEventListener('click', ()=>{
+    const name = document.getElementById('nombre').value.trim() || 'Nombre Apellido';
+    const phone= document.getElementById('telefono').value.trim() || '+56 9 1234 5678';
+    drawCoupon(name, phone, true);
+  });
+</script>
 </body>
 </html>
