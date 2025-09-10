@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Milan Food — WhatsApp</title>
+  <meta name="description" content="Milan Food — contacto directo por WhatsApp" />
+  <style>
+    :root{
+      --bg:#0f0f14;
+      --fg:#f6f6f9;
+      --accent:#ff4d4f;
+      --accent2:#ffb347;
+      --card:#171720;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
+      background: radial-gradient(1200px 800px at 70% 10%, #1c1c27 0%, var(--bg) 50%), var(--bg);
+      color:var(--fg);
+      display:grid;
+      place-items:center;
+    }
+    .wrap{
+      width:100%;
+      max-width:1000px;
+      padding:32px 20px 48px;
+      display:grid;
+      gap:28px;
+      justify-items:center;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(22px, 3vw, 34px);
+      letter-spacing:0.2px;
+      text-align:center;
+      font-weight:800;
+    }
+    p.sub{margin:0;opacity:.85;text-align:center;max-width:720px;}
+
+    .scene{width:min(88vw,520px);height:min(88vw,520px);perspective:1200px;user-select:none;}
+    .stage{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .4s cubic-bezier(.2,.8,.2,1);cursor:pointer;}
+    .cube{position:absolute;top:50%;left:50%;transform-style:preserve-3d;transform:translate(-50%,-50%) rotateX(-18deg) rotateY(25deg);width:56%;height:56%;animation:float 4s ease-in-out infinite alternate;}
+    @keyframes float{from{transform:translate(-50%,-50%) rotateX(-18deg) rotateY(25deg)}to{transform:translate(-50%,-50%) rotateX(-24deg) rotateY(31deg) translateZ(10px)}}
+    .face{position:absolute;width:100%;height:100%;background:linear-gradient(180deg,#2b2b3a,#1c1c27);border:1px solid #2c2c38;border-radius:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03),0 12px 30px rgba(0,0,0,.45);display:grid;place-items:center;text-align:center;padding:18px;}
+    .logo{font-weight:900;letter-spacing:1.6px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;text-transform:uppercase;}
+
+    .cube .face--front  { transform: translateZ(calc(50%)); }
+    .cube .face--back   { transform: rotateY(180deg) translateZ(calc(50%)); }
+    .cube .face--right  { transform: rotateY(90deg) translateZ(calc(50%)); }
+    .cube .face--left   { transform: rotateY(-90deg) translateZ(calc(50%)); }
+    .cube .face--top    { transform: rotateX(90deg) translateZ(calc(50%)); }
+    .cube .face--bottom { transform: rotateX(-90deg) translateZ(calc(50%)); }
+
+    .cta{display:inline-flex;gap:10px;align-items:center;padding:14px 18px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#1a1a1a;border:none;border-radius:14px;font-weight:800;text-decoration:none;box-shadow:0 10px 24px rgba(255,77,79,.25);}
+    .cta small{opacity:.9}
+    .footer{opacity:.7;font-size:12px;text-align:center;margin-top:10px;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>¡Haz clic en el cubo para escribirnos por <span class="logo">WhatsApp</span>!</h1>
+    <p class="sub">Toca o haz clic en el cubo para abrir el chat directo con Milan Food.</p>
+
+    <div class="scene" id="scene">
+      <div class="stage" id="stage">
+        <div class="cube" id="cube">
+          <div class="face face--front"><h2 class="logo">Milan Food</h2></div>
+          <div class="face face--back"><h2>Click → WhatsApp</h2></div>
+          <div class="face face--right"><h2>🍕 Promos</h2></div>
+          <div class="face face--left"><h2>🍔 Burgers</h2></div>
+          <div class="face face--top"><h2>🍟 Papas</h2></div>
+          <div class="face face--bottom"><h2>💬 Chat</h2></div>
+        </div>
+      </div>
+    </div>
+
+    <a class="cta" id="cta" href="https://wa.me/56937679969?text=Hola%2C%20quisiera%20agendar%20un%20pedido" target="_blank" rel="noopener">
+      Abrir WhatsApp Web <small>(+56 9 3767 9969)</small>
+    </a>
+
+    <div class="footer">© 2025 Milan Food · Hecho con ♥</div>
+  </div>
+
+  <script>
+    const WA = "https://wa.me/56937679969?text=Hola%2C%20quisiera%20agendar%20un%20pedido";
+    const stage = document.getElementById('stage');
+    const cube = document.getElementById('cube');
+    const scene = document.getElementById('scene');
+
+    stage.addEventListener('click', () => { window.open(WA,"_blank","noopener"); });
+    scene.addEventListener('mousemove', (e) => {
+      const rect = scene.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const rx = (0.5 - y) * 22;
+      const ry = (x - 0.5) * 28;
+      cube.style.transform = `translate(-50%,-50%) rotateX(${rx-5}deg) rotateY(${ry+12}deg)`;
+    });
+    scene.addEventListener('mouseleave', () => {
+      cube.style.transform = `translate(-50%,-50%) rotateX(-18deg) rotateY(25deg)`;
+    });
+  </script>
+</body>
+</html>
